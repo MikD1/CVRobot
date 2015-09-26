@@ -1,3 +1,4 @@
+// Drive Command - 1
 // arguments:
 // byte 1 - M1 speed (0 - 255)
 // byte 2 - M2 speed (0 - 255)
@@ -24,18 +25,30 @@ void loop()
 {
   if (Serial.available() > 0)
   {
-    byte m1Speed = RecieveSerialByte();
-    byte m2Speed = RecieveSerialByte();
-    byte dirction = RecieveSerialByte();
+    byte command = RecieveSerialByte();
+    if (command == 1)
+    {
+      byte m1Speed = RecieveSerialByte();
+      byte m2Speed = RecieveSerialByte();
+      byte dirction = RecieveSerialByte();
 
-    bool m1Direction = dirction & 0b00000010;
-    bool m2Direction = dirction & 0b00000001;
+      bool m1Direction = dirction & 0b00000010;
+      bool m2Direction = dirction & 0b00000001;
 
-    int m1Value = GetMotorValue(m1Speed, m1Direction);
-    int m2Value = GetMotorValue(m2Speed, m2Direction);
+      int m1Value = GetMotorValue(m1Speed, m1Direction);
+      int m2Value = GetMotorValue(m2Speed, m2Direction);
 
-    MotorsDriver.setM1Speed(m1Value);
-    MotorsDriver.setM2Speed(m2Value);
+      MotorsDriver.setM1Speed(m1Value);
+      MotorsDriver.setM2Speed(m2Value);
+    }
+
+    if (command == 2)
+    {
+      byte arg1 = RecieveSerialByte();
+      byte arg2 = RecieveSerialByte();
+      byte data[3] = { 2, arg1, arg2 };
+      Serial.write(data, 3);
+    }
 
     delay(10);
   }

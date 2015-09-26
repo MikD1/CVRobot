@@ -53,7 +53,8 @@ void loop()
 
 void Drive(int x, int y)
 {
-  byte data[3] = { 0 };
+  byte data[4] = { 0 };
+  data[0] = 1;
 
   int xState = NeutralCompare(x);
   int yState = NeutralCompare(y);
@@ -69,70 +70,70 @@ void Drive(int x, int y)
 
     case 1:
       {
-        data[0] = SpeedRates[CurrentSpeed - 1];
         data[1] = SpeedRates[CurrentSpeed - 1];
-        data[2] = 0b00000010;
+        data[2] = SpeedRates[CurrentSpeed - 1];
+        data[3] = 0b00000010;
         break;
       }
 
     case 2:
       {
-        data[0] = SpeedRates[CurrentSpeed - 1];
         data[1] = SpeedRates[CurrentSpeed - 1];
-        data[2] = 0b00000001;
+        data[2] = SpeedRates[CurrentSpeed - 1];
+        data[3] = 0b00000001;
         break;
       }
 
     case 10:
       {
-        data[0] = SpeedRates[CurrentSpeed - 1];
         data[1] = SpeedRates[CurrentSpeed - 1];
-        data[2] = 0b00000011;
+        data[2] = SpeedRates[CurrentSpeed - 1];
+        data[3] = 0b00000011;
         break;
       }
 
     case 20:
       {
-        data[0] = SpeedRates[CurrentSpeed - 1];
         data[1] = SpeedRates[CurrentSpeed - 1];
-        data[2] = 0b00000000;
+        data[2] = SpeedRates[CurrentSpeed - 1];
+        data[3] = 0b00000000;
         break;
       }
 
     case 11:
       {
-        data[0] = SpeedRates[CurrentSpeed - 1] / 2;
-        data[1] = SpeedRates[CurrentSpeed - 1];
-        data[2] = 0b00000011;
+        data[1] = SpeedRates[CurrentSpeed - 1] / 2;
+        data[2] = SpeedRates[CurrentSpeed - 1];
+        data[3] = 0b00000011;
         break;
       }
 
     case 12:
       {
-        data[0] = SpeedRates[CurrentSpeed - 1];
-        data[1] = SpeedRates[CurrentSpeed - 1] / 2;
-        data[2] = 0b00000011;
+        data[1] = SpeedRates[CurrentSpeed - 1];
+        data[2] = SpeedRates[CurrentSpeed - 1] / 2;
+        data[3] = 0b00000011;
         break;
       }
 
     case 21:
       {
-        data[0] = SpeedRates[CurrentSpeed - 1] / 2;
-        data[1] = SpeedRates[CurrentSpeed - 1];
-        data[2] = 0b00000000;
+        data[1] = SpeedRates[CurrentSpeed - 1] / 2;
+        data[2] = SpeedRates[CurrentSpeed - 1];
+        data[3] = 0b00000000;
         break;
       }
 
     case 22:
       {
-        data[0] = SpeedRates[CurrentSpeed - 1];
-        data[1] = SpeedRates[CurrentSpeed - 1] / 2;
-        data[2] = 0b00000000;
+        data[1] = SpeedRates[CurrentSpeed - 1];
+        data[2] = SpeedRates[CurrentSpeed - 1] / 2;
+        data[3] = 0b00000000;
         break;
       }
   }
 
-  Serial.write(data, 3);
+  Serial.write(data, 4);
 }
 
 int NeutralCompare(int value)

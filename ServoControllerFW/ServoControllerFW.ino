@@ -1,3 +1,4 @@
+// Servo command - 2
 // arguments:
 // byte 1 - segment (0 - SegmentsCount-1)
 // byte 2 - value (0 - 180)
@@ -64,11 +65,15 @@ void loop(void)
 {
   if (Serial.available() > 0)
   {
-    byte segment = Serial.read();
-    if (segment < SegmentsCount)
+    byte command = RecieveSerialByte();
+    if (command == 2)
     {
-      byte value = RecieveSerialByte();
-      Segments[segment]->SetPos(value);
+      byte segment = RecieveSerialByte();
+      if (segment < SegmentsCount)
+      {
+        byte value = RecieveSerialByte();
+        Segments[segment]->SetPos(value);
+      }
     }
 
     delay(10);
